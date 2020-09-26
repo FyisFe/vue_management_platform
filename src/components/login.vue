@@ -6,10 +6,10 @@
       </div>
       <el-form ref="loginFormRef" :model="loginForm" :rules="loginRules"  class="login_form">
         <el-form-item prop="username">
-          <el-input v-model="loginForm.username" prefix-icon="iconfont icon-User"></el-input>
+          <el-input v-model="loginForm.username" prefix-icon="iconfont icon-caidan07"></el-input>
         </el-form-item>
         <el-form-item prop="password">
-          <el-input v-model="loginForm.password" prefix-icon="iconfont icon-password"></el-input>
+          <el-input v-model="loginForm.password" prefix-icon="iconfont icon-xxhdpiCombinedShape"></el-input>
         </el-form-item>
         <el-form-item class="btns">
           <el-button type="primary" @click="login">Login</el-button>
