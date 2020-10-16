@@ -1,6 +1,6 @@
 <template>
     <div>
-      <el-breadcrumb separator="/">
+      <el-breadcrumb separator=">">
       <el-breadcrumb-item :to="{ path: '/home' }">Homepage</el-breadcrumb-item>
       <el-breadcrumb-item>User</el-breadcrumb-item>
       <el-breadcrumb-item>Activities</el-breadcrumb-item>

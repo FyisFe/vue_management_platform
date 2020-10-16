@@ -9,7 +9,7 @@
           <el-input v-model="loginForm.username" prefix-icon="iconfont icon-caidan07"></el-input>
         </el-form-item>
         <el-form-item prop="password">
-          <el-input v-model="loginForm.password" prefix-icon="iconfont icon-xxhdpiCombinedShape"></el-input>
+          <el-input v-model="loginForm.password" prefix-icon="iconfont icon-xxhdpiCombinedShape" show-password></el-input>
         </el-form-item>
         <el-form-item class="btns">
           <el-button type="primary" @click="login">Login</el-button>
