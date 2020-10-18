@@ -36,7 +36,7 @@
                 <el-button type="danger" icon="el-icon-delete" size="mini" @click="removeUserById(scope.row.id)"></el-button>
               </el-tooltip>
               <el-tooltip effect="dark" content="Set role" placement="top" :enterable="false">
-                <el-button type="warning" icon="el-icon-setting" size="mini"></el-button>
+                <el-button type="warning" icon="el-icon-setting" size="mini" @click="setRole(scope.row)"></el-button>
               </el-tooltip>
             </template>
           </el-table-column>
@@ -97,6 +97,32 @@
           <el-button @click="editDialogVisible = false">Cancel</el-button>
           <el-button type="primary" @click="editUser">Confirm</el-button>
           </span>
+      </el-dialog>
+      <!-- set role -->
+      <el-dialog
+        title="Set Role"
+        :visible.sync="setDialogVisible"
+        width="50%"
+        @close='setDialogClosed'
+      >
+        <div>
+          <p> Current User: {{userInfo.username}}</p>
+          <p> Current Role: {{userInfo.role_name}}</p>
+          <p> Set new Role:
+            <el-select v-model="selectedRowId" placeholder="请选择">
+              <el-option
+                v-for="item in rolesList"
+                :key="item.id"
+                :label="item.roleName"
+                :value="item.id">
+              </el-option>
+            </el-select>
+          </p>
+        </div>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="setDialogVisible = false">Cancel</el-button>
+          <el-button type="primary" @click="saveRoleInfo">Confirm</el-button>
+        </span>
       </el-dialog>
     </div>
 </template>
@@ -166,7 +192,11 @@ export default {
           { required: true, message: 'please enter your phone number', trigger: 'blur' },
           { validator: checkMobile, trigger: 'blur' }
         ]
-      }
+      },
+      setDialogVisible: false,
+      userInfo: {},
+      rolesList: {},
+      selectedRowId: ''
     }
   },
   created () {
@@ -238,17 +268,45 @@ export default {
       })
     },
     async removeUserById (id) {
-      await this.$confirm('Are you sure to delete the user?', 'Warning', {
+      const confirmResult = await this.$confirm('Are you sure to delete the user?', 'Warning', {
         confirmButtonText: 'Yes',
         cancelButtonText: 'Cancel',
         type: 'warning'
       }).catch(err => err)
+      if (confirmResult !== 'confirm') {
+        return this.$message.info('Canceled')
+      }
       const { data: res } = await this.$http.delete('users/' + id)
       if (res.meta.status !== 200) {
         return this.$message.error('Fail to delete the user!')
       }
       this.$message.success('Delete user successfully!')
       this.getUserList()
+    },
+    async setRole (userinfo) {
+      this.setDialogVisible = true
+      const { data: res } = await this.$http.get('roles')
+      if (res.meta.status !== 200) {
+        return this.$message.error('Fail to get roles list!')
+      }
+      this.rolesList = res.data
+      this.userInfo = userinfo
+    },
+    async saveRoleInfo () {
+      if (!this.selectedRowId) {
+        return this.$message.error('Please select a role!')
+      }
+      const { data: res } = await this.$http.put(`users/${this.userInfo.id}/role`, { rid: this.selectedRowId })
+      if (res.meta.status !== 200) {
+        return this.$http.error('Fail to update role info!')
+      }
+      this.$message.success('Updated successfully!')
+      this.getUserList()
+      this.setDialogVisible = false
+    },
+    setDialogClosed () {
+      this.selectedRowId = ''
+      this.userInfo = {}
     }
   }
 }
