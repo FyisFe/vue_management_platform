@@ -30,7 +30,10 @@ import {
   Tree,
   Select,
   Option,
-  Cascader
+  Cascader,
+  Alert,
+  Tabs,
+  TabPane
 } from 'element-ui'
 
 Vue.use(ZkTable)
@@ -62,6 +65,9 @@ Vue.use(Tree)
 Vue.use(Select)
 Vue.use(Cascader)
 Vue.use(Option)
+Vue.use(Alert)
+Vue.use(Tabs)
+Vue.use(TabPane)
 
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm
