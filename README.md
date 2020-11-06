@@ -1,5 +1,5 @@
 ##  电商后台管理系统(前端项目)
-### 后端API接口源码  [下载](https://gitee.com/wBekvam/vueShop-api-server.git).  [接口API](./api接口文档.md)
+### 后端API接口源码  [下载](https://github.com/FyisFe/vue-shop-server).  [接口API](./api接口文档.md)
 
 ### 功能
 
