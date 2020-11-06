@@ -1,4 +1,7 @@
 ##  电商后台管理系统(前端项目)
+### [预览]
+#### 账号：admin
+#### 密码: 123456
 ### 后端API接口源码  [下载](https://github.com/FyisFe/vue-shop-server).  [接口API](./api接口文档.md)
 
 ### 功能
